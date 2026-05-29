@@ -1,0 +1,173 @@
+<core:FragmentDefinition
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.uxap">
+
+    <m:Dialog id="dlgDcEdit" 
+        title="{i18n>DIALOG_DC_EDIT_TITLE}"
+        resizable="true"
+        contentWidth="900px"            
+        contentHeight="auto">
+<!-- columnsS="2" -->
+        <m:content>
+        
+            <form:SimpleForm
+                id="dcEditForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                columnsXL="1" columnsL="1" columnsM="1"
+                labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4"
+                emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0">
+
+                <form:content>
+
+                    <!-- Read-Only Fields -->
+                    <m:Label text="{i18n>LBL_DC_EDIT_SITE}"/>
+                    <m:Text text="{dcModel>/plant}"/>
+
+                    <m:Label text="{i18n>LBL_DC_GROUP}"/>
+                    <m:Text text="{dcModel>/dcGroup}"/>
+
+                    <m:Label text="{i18n>LBL_PARAMETER}"/>
+                    <m:Text text="{dcModel>/parameter}"/>
+
+                    <m:Label text="{i18n>LBL_SFC}"/>
+                    <m:Text text="{dcModel>/sfc}"/>
+
+                    <m:Label text="{i18n>LBL_SHOP_ORDER}"/>
+                    <m:Text text="{dcModel>/shopOrder}"/>
+
+                    <m:Label text="{i18n>LBL_CURRENT_VALUE}"/>
+                    <m:Text text="{dcModel>/currentValue}"/>
+
+                    <m:Label text="{i18n>LBL_DATE_TIME}"/>
+                    <m:Text text="{
+                        path: 'dcModel>/createdAt',
+                        formatter: '.formatDateTime'
+                    }"/>
+
+                    <m:Label text="{i18n>LBL_USER}"/>
+                    <m:Text text="{dcModel>/user}"/>
+
+                    <m:Label text="{i18n>LBL_MIN_VALUE}"/>
+                    <m:Text text="{dcModel>/minValue}"/>
+
+                    <m:Label text="{i18n>LBL_MAX_VALUE}"/>
+                    <m:Text text="{dcModel>/maxValue}"/>
+
+                    <!-- Editable -->
+                    <m:Label text="{i18n>LBL_NEW_VALUE}" required="true"/>
+                    <m:Input value="{dcModel>/newValue}" required="true" />
+
+                    <m:Label text="{i18n>LBL_COMMENT}"
+                            required="{dcModel>/isCommentRequired}"/>
+                    <m:TextArea value="{dcModel>/comment}"
+                                required="{dcModel>/isCommentRequired}"
+                                rows="2"/>
+
+                </form:content>
+
+            </form:SimpleForm>
+
+
+            <!-- Action Buttons -->
+           <m:HBox
+                justifyContent="Center"
+                alignItems="Center"
+                class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+
+                <!-- <m:Button id="btnSave"
+                    text="{i18n>BTN_SAVE}"
+                    icon="sap-icon://save"
+                    type="Emphasized"
+                    press="onSavePress"
+                    class="sapUiTinyMarginEnd"/> -->
+
+                <m:Button id="btnSave"
+                    text="{i18n>BTN_SAVE}"
+                    icon="sap-icon://save"
+                    type="Emphasized"
+                    press="onNcConfirmationDialogue"
+                    class="sapUiTinyMarginEnd"/>
+
+                <m:Button id="btnCancel"
+                    text="{i18n>BTN_CLOSE}"
+                    icon="sap-icon://decline"
+                    press="onCancelPress"/>
+
+            </m:HBox>
+
+
+            <!-- ========================= -->
+            <!-- History Table -->
+            <!-- ========================= -->
+
+            <m:Title text="{i18n>TITLE_DC_HISTORY_DETAILS}" level="H5" class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin"/>
+            <m:ScrollContainer
+                height="300px"
+                width="100%"
+                vertical="true"
+                horizontal="false">
+
+            <!-- <m:Table id="tblHistory"
+                    items="{selectedHistoryModel>/historyResults}"
+                    width="100%"
+                    growing="true"
+                    growingScrollToLoad="true"
+                    class="sapUiSmallMarginBottom"> -->
+                    <m:Table id="tblHistory"
+                            items="{selectedHistoryModel>/historyResults}"
+                            width="100%"
+                            growing="true"
+                            growingScrollToLoad="true"
+                            sticky="ColumnHeaders"
+                            class="sapUiSmallMarginBottom">
+
+                <m:columns>
+                    <m:Column>
+                        <m:Text text="Previous Value"/>
+                    </m:Column>
+
+                    <m:Column>
+                        <m:Text text="New Value"/>
+                    </m:Column>
+
+                    <m:Column>
+                        <m:Text text="Date/Time"/>
+                    </m:Column>
+
+                    <m:Column>
+                        <m:Text text="User"/>
+                    </m:Column>
+
+                    <m:Column>
+                        <m:Text text="Comment"/>
+                    </m:Column>
+                </m:columns>
+
+                <m:items>
+                    <m:ColumnListItem>
+                        <m:cells>
+                            <m:Text text="{selectedHistoryModel>previousValue}"/>
+                            <m:Text text="{selectedHistoryModel>newValue}"/>
+                            <m:Text text="{
+                                path: 'selectedHistoryModel>createdAt',
+                                formatter: '.formatDateTime'
+                            }"/>
+                            <m:Text text="{selectedHistoryModel>user}"/>
+                            <m:Text text="{selectedHistoryModel>comment}"/>
+                        </m:cells>
+                    </m:ColumnListItem>
+                </m:items>
+
+            </m:Table>
+            </m:ScrollContainer>
+        </m:content>
+
+    </m:Dialog>
+</core:FragmentDefinition>

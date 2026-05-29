@@ -1,0 +1,15 @@
+{
+	"components": [
+		{
+			"id": "datacollectioneditui",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": false,
+			"name": "shs.custom.plugin.datacollectioneditui.datacollectioneditui",
+			"propertyEditor": "shs.custom.plugin.datacollectioneditui.datacollectioneditui.builder.PropertyEditor",
+			"i18n": "shs.custom.plugin.datacollectioneditui.datacollectioneditui.i18n.i18n",
+            "productionProcessEnabled": true,
+           "productionProcessTitle": "datacollectioneditui",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER"]
+		}   
+	]
+}

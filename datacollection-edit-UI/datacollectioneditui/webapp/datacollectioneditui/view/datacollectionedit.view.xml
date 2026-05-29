@@ -1,0 +1,180 @@
+<mvc:View 
+xmlns:mvc="sap.ui.core.mvc" 
+xmlns="sap.m"
+xmlns:l="sap.ui.layout" 
+xmlns:f="sap.ui.layout.form" 
+xmlns:core="sap.ui.core" 
+xmlns:html="http://www.w3.org/1999/xhtml" 
+controllerName="shs.custom.plugin.datacollectioneditui.datacollectioneditui.controller.datacollectionedit"
+width="100%" height="100%">
+<Panel id="panelPlugin1"  
+            width="100%"
+            height="100%"
+            expandable="false"
+            expanded="false"
+            accessibleRole="Region"
+            backgroundDesign="Transparent"
+            class="sapUiNoContentPadding">  
+    <content> 
+        <l:BlockLayout>
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell/>
+                <l:BlockLayoutCell>
+                    <VBox class="sapUiMediumMarginBottom">
+                        <HBox alignItems="Start" width="250px">
+                            <Label text="{i18n>LBL_DC_EDIT_SITE}:" width="35px"/>
+                            <Label text="{viewModel>/currentPlant}" class="sapThemeHighlight"/>
+
+                            <Label text="" width="60px"/>
+                            
+                            <Label text="{i18n>LBL_USER}:" width="35px"/>
+                            <Label text="{viewModel>/userId}"  class="sapThemeHighlight"/>
+                        </HBox>
+                    </VBox>
+                </l:BlockLayoutCell>
+                <l:BlockLayoutCell/>
+            </l:BlockLayoutRow>
+
+            <l:BlockLayoutRow>
+            <l:BlockLayoutCell>
+                    <!-- One container HBox for the whole row -->
+                <HBox class="sapUiMediumMarginBottom" alignItems="Center" justifyContent="Start" renderType="Bare" wrap="Wrap" width="100%">
+                    <!-- SFC -->
+                    <HBox alignItems="Center" class="sapUiTinyMarginEnd">
+                        <Label text="{i18n>LBL_SFC}:" class="sapThemeHighlight" width="auto" labelFor="inpSfc" required="true"/>
+                        <Input
+                        id="inpSfc"
+                        width="18rem"
+                        required="true"
+                        placeholder="{i18n>PH_SFC}"
+                        autocomplete="false"
+                        showSuggestion="true"
+                        showValueHelp="true"
+                        change=".onSfcManualChange"
+                        editable="true"
+                        valueHelpRequest=".onValueHelpRequest"
+                        suggestionItems="{/SFCDetails}">
+                        <suggestionItems>
+                            <core:Item text="{Name}" />
+                        </suggestionItems>
+                        </Input>
+                    </HBox>
+                    
+                    <!-- DC Group -->
+                    <HBox alignItems="Center" class="sapUiTinyMarginEnd">
+                        <Label text="{i18n>LBL_DC_GROUP}:" class="sapThemeHighlight" width="70px" labelFor="inpDcGroup"/>
+                        <Input
+                            id="inpDcGroup"
+                            width="18rem"
+                            placeholder="{i18n>PH_DC_GROUP}"
+                            autocomplete="false"
+                            showSuggestion="true"
+                            showValueHelp="true"
+                            valueHelpRequest=".onValueHelpDCRequest"
+                            suggestionItems="{/DcGroupCollection}">
+                            <suggestionItems>
+                                <core:Item text="{Name}" />
+                            </suggestionItems>
+                        </Input>
+                    </HBox>
+
+                    <!-- Spacer -->
+                    <ToolbarSpacer width="1rem"/>
+
+                    <!-- Version -->
+                    <HBox alignItems="Center" class="sapUiTinyMarginEnd">
+                        <Label text="{i18n>LBL_VERSION}:" class="sapThemeHighlight" width="54px" labelFor="inpVersion"/>
+                        <Input id="inpVersion" width="10rem" editable="false"/>
+                    </HBox>
+
+                    <!-- Spacer -->
+                    <ToolbarSpacer width="1rem"/>
+
+                    <!-- Parameter -->
+                    <HBox alignItems="Center" class="sapUiTinyMarginEnd">
+                        <Label text="{i18n>LBL_PARAMETER}:" class="sapThemeHighlight" width="73px" labelFor="inpParameter"/>
+                        <Input id="inpParameter" width="18rem" showValueHelp="true" valueHelpRequest="onValueHelpParamRequest" />
+                    </HBox>
+
+                    <!-- Spacer -->
+                    <ToolbarSpacer width="1rem"/>
+
+                    <!-- Actions -->
+                    <ToolbarSpacer width="1rem"/>
+                    <Button id="btnSearch" text="{i18n>BTN_SEARCH}" type="Transparent" press="onSearchPress"/>
+                    <ToolbarSpacer width="0.5rem"/>
+                    <Button id="btnClear" text="{i18n>BTN_CLEAR}" type="Transparent" press="onClearFiltersPress"/>
+
+                </HBox>
+            </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+
+            <l:BlockLayoutRow class="sapUiNoContentPadding">
+                <l:BlockLayoutCell class="sapUiNoContentPadding">
+                            <Label text="" width="60px"/>
+                </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+            
+            <l:BlockLayoutRow class="sapUiNoContentPadding">
+                <l:BlockLayoutCell class="sapUiNoContentPadding">
+                        <Table id="tblDcEdit" items="{dcLogModel>/results}" class="sapFDynamicPageAlignContent" width="auto">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>LBL_DC_GROUP}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>LBL_PARAMETER}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>LBL_DESCRIPTION}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>LBL_OPERATION}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>LBL_VALUE}"/>
+                                </Column>
+                                <Column>
+                                 <Text text="{i18n>LBL_SFC}"/>
+                                </Column>
+                                <Column>
+                                 <Text text="{i18n>LBL_SHOP_ORDER}"/>
+                                </Column>
+                                <Column>
+                                   <Text text="{i18n>LBL_DATE_TIME}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>LBL_DETAILS}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Label text="{dcLogModel>DC_GROUP}"/>
+                                        <Label text="{dcLogModel>DC_PARAMETER_NAME}"/>
+                                        <Label text="{dcLogModel>PARAMETER_DESCRIPTION}"/>
+                                        <Label text="{dcLogModel>OPERATION_ACTIVITY}"/>
+                                        <Label text="{dcLogModel>DC_PARAMETER_VALUE}"/>
+                                        <Label text="{dcLogModel>SFC}"/>
+                                        <Label text="{dcLogModel>MFG_ORDER}"/>
+                                        <Label text="{dcLogModel>CREATED_AT}"/>
+                                        <Button icon="sap-icon://search"
+                                                type="Transparent"
+                                                press="onOpenDCEditDialog"/>
+                                    </cells>
+
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell class="sapUiNoContentPadding">
+                    <core:Fragment fragmentName="shs.custom.plugin.datacollectioneditui.datacollectioneditui.fragment.dceditdialog" type="XML" />
+                </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+
+        </l:BlockLayout>
+    </content>
+    </Panel>		
+</mvc:View>

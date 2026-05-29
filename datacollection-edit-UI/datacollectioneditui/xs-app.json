@@ -1,0 +1,14 @@
+{
+  "welcomeFile": "/datacollectioneditui/index.html",
+  "authenticationMethod": "none",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "^/datacollectioneditui/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    }
+  ]
+}
